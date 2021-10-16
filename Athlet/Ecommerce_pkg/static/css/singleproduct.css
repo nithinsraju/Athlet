@@ -1,0 +1,54 @@
+.col-2{
+    flex-basis: 50%;
+    min-width: 500px;
+}
+
+.heading{
+    font-size: 20px;
+    margin-top: 50px;
+}
+
+
+
+.small-container{
+    margin-top: 100px ;
+    margin-left: 160px;
+}
+
+.small-container h1{
+    margin: 20px 0 30px 0;
+}
+
+.small-container .price{
+    font-size: 40px;
+    color: #394867;
+}
+
+.fnl{
+    margin: 0 10px;
+}
+
+.fnl:hover a{
+    background-color: #394867;
+}
+
+.small-container .buy{
+    padding: 10px 40px;
+    margin-top: 150px;
+    color: #fff;
+    text-decoration: none;
+    background: #14274E;
+    border-radius: 30px;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.4s;
+}
+
+.desc{
+    margin-top: 20px;
+}
+
+.small-container .fnl-btn{
+    margin: 40px 0 ;
+}

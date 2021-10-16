@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+
+{% block content%}
+<!-- <div>
+    <form action="" method="POST">
+
+        {{form.hidden_tag()}}
+        <fieldset>
+            <legend>
+                Login
+            </legend>
+
+            <div>
+                {{ form.email.label() }}
+                {{ form.email() }}
+            </div>
+
+            <div>
+                {{ form.password.label() }}
+                {{ form.password() }}
+            </div>
+            
+        </fieldset>
+        <div>
+            {{ form.submit() }}
+        </div>
+       
+
+    </form>
+</div>
+<div>
+    <br>
+    <br>
+    <small>
+        Don't have an account? <a href="{{ url_for('register')}}">Register </a>
+    </small>
+</div> -->
+
+<div class="center">
+    <h1>Login</h1>
+    <form method="POST">
+
+      {{form.hidden_tag()}}
+      
+      
+      <div class="txt_field">
+        <!-- <div class="ip">{{ form.email.label() }}</div> -->
+        <span></span>
+        <div class="txt">{{ form.email(placeholder="Email id") }}</div>
+      </div>
+
+      
+      <div class="txt_field">
+        <!-- {{ form.password.label() }} -->
+        <span></span>
+        {{ form.password(placeholder="Password") }}
+      </div>
+    
+    
+      <div>
+        {{ form.submit() }}
+      </div>
+
+      <div class="signup_link">
+        Not a member? <a href="{{ url_for('register')}}">Signup</a>
+      </div>
+
+    </form>
+  </div>
+
+{%endblock %}
+

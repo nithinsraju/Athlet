@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athlet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,300&display=swap" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!-- favicon icon -->
+    <link rel="icon" type="images/png" href="images/favicon.png"/>
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- custom css file link  -->
+	<link rel = "stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+
+</head>
+<body>
+    <!-- Header starts -->
+    <div class="header">
+        <a href="#" class="logo">
+            <img src="{{ url_for('static', filename='images/2.png')}}" alt="logo">
+        </a>
+
+        <nav class="navbar">
+            <a href="{{url_for('home')}}">Home</a>
+            <a href="#" class="cat">Categories</a>
+				<div class="sub-cat">
+					<ul>
+						<li><a href="#">Outdoor</a></li>
+						<li><a href="#">Indoor</a></li>
+						<li><a href="#">Water sports</a></li>
+						<li><a href="#">Protein</a></li>
+					</ul>
+				</div>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </nav>
+
+        <div class="icons">
+            <!-- <div class="fas fa-search" id="search-btn"></div> -->
+			{% if current_user.is_authenticated %}
+			<a href="#"><div class="fas fa-search" id="search-btn"></div></a>
+            <div class="fas fa-shopping-cart" id="cart-btn"></div>
+			<a href="{{url_for('logout')}}">logout</a>
+			<a href="{{url_for('account')}}">account</a>
+
+			{% else %}
+			<a href="{{url_for('login')}}">login</a>
+			<a href="{{url_for('register')}}">register</a>
+
+			{%  endif %}
+			
+			
+            <div class="fas fa-bars" id="menu-btn"></div>
+
+        </div>
+
+        <div class="search-form">
+            <input type="search" id="search-box" placeholder="search for items...">
+            <label for="search-box" class="fas fa-search"></label>
+        </div>
+    </div>
+    <!-- header ends -->
+
+    <!-- Hero section starts -->
+    <div class="home">
+        <div class="text">
+            <h5>NEW ARRIVALS</h5>
+            <h1><span>Best Price</span> This Season</h1>
+            <p>Athlet offers you everything you reuqire at its best prices this season.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <button class="primary-btn">
+                Shop Now
+            </button>
+        </div>
+    </div>
+    <!-- Hero section ends-->
+
+    <!-- Featured section starts -->
+    <section class="featured">
+        <div class="featured-text">
+            <h1>Featured Products</h1>
+            <hr>
+            <p>Here you can check out our new products with fair prices.</p>
+        </div>
+
+        <div class="best-sellers">
+
+            <div class="card">
+                <div class="imgbx">
+                    <img src="{{url_for('static', filename='images/featured/1.png')}}" alt="bag">
+                </div>
+                <div class="contentbx">
+                    <h3>Trekking bag</h3>
+                    <h2 class="price">₹ 2999.<small>00</small></h2>
+                    <a href="#" class="buy">Buy Now</a>
+                </div>
+            </div>
+			
+            <div class="card">
+                <div class="imgbx shoe">
+                    <img  src="{{url_for('static', filename='images/featured/2.png')}}" alt="bag">
+                </div>
+                <div class="contentbx">
+                    <h3>Sports shoes</h3>
+                    <h2 class="price">₹ 1999.<small>00</small></h2>
+                    <a href="#" class="buy">Buy Now</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="imgbx jacket">
+                    <img src="{{url_for('static', filename='images/featured/3.png')}}" alt="bag">
+                </div>
+                <div class="contentbx">
+                    <h3>Tennis Jacket</h3>
+                    <h2 class="price">₹ 1599.<small>00</small></h2>
+                    <a href="#" class="buy">Buy Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured section ends -->
+
+    <!-- offer -->
+    <div class="banner">
+        <div>
+            <h4>END OF THE SEASON'S SALE</h4>
+            <h1>
+                Winter Collenction <br>
+                UP TO 20% OFF
+            </h1>
+            <button class="primary-btn">
+                Shop Now
+            </button>
+        </div>
+    </div>
+    <!-- offer -->
+	{% for product in products %}
+	<div class="card" style="width: 18rem;">
+		<img src="{{url_for('static',filename='/images/'+product.image)}}" class="card-img-top" alt="...">
+		<div class="card-body">
+		  <h5 class="card-title">{{product.name}}</h5>
+		  <p class="card-text">{{product.price}}</p>
+		  <a href="{{url_for('add_to_cart',product_id=product.id)}}" class="btn btn-primary">Add to cart</a>
+		</div>
+	  </div>
+	{% endfor %}
+    <!-- Categories section starts -->
+    <div class="featured">
+        <div class="featured-text">
+
+            <h1>Category 1</h1>
+            <hr>
+            <p class="category">Here you can check out our new products with fair prices.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+        <section class="slider">
+			<div class="product">
+				<picture>
+					<img src="{{url_for('static', filename='images/Products/1.png')}}" alt="">
+				</picture>
+				<div class="detail">
+					<p>
+						<b>Product One</b><br>
+						<small>New arrival</small>
+					</p>
+					<samp>$45.00</samp>
+				</div>
+				<div class="button">
+					<p class="star">
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+					</p>
+					<a href="#" class = "add">Add-cart</a>
+				</div>
+			</div>
+			<div class="product">
+				<picture>
+					<img src="{{url_for('static', filename='images/Products/2.png')}}" alt="">
+				</picture>
+				<div class="detail">
+					<p>
+						<b>Product Two</b><br>
+						<small>New arrival</small>
+					</p>
+					<samp>$45.00</samp>
+				</div>
+				<div class="button">
+					<p class="star">
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+					</p>
+					<a href="#" class = "add">Add-cart</a>
+				</div>
+			</div>
+			<div class="product">
+				<picture>
+					<img src="{{url_for('static', filename='images/Products/3.png')}}" alt="">
+				</picture>
+				<div class="detail">
+					<p>
+						<b>Product Three</b><br>
+						<small>New arrival</small>
+					</p>
+					<samp>$45.00</samp>
+				</div>
+				<div class="button">
+					<p class="star">
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+					</p>
+					<a href="#" class = "add">Add-cart</a>
+				</div>
+			</div>
+			<div class="product">
+				<picture>
+					<img src="{{url_for('static', filename='images/Products/4.png')}}" alt="">
+				</picture>
+				<div class="detail">
+					<p>
+						<b>Product Four</b><br>
+						<small>New arrival</small>
+					</p>
+					<samp>$45.00</samp>
+				</div>
+				<div class="button">
+					<p class="star">
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+					</p>
+					<a href="#" class = "add">Add-cart</a>
+				</div>
+			</div>
+			<div class="product">
+				<picture>
+					<img src="{{url_for('static', filename='images/Products/5.png')}}" alt="">
+				</picture>
+				<div class="detail">
+					<p>
+						<b>Product Five</b><br>
+						<small>New arrival</small>
+					</p>
+					<samp>$45.00</samp>
+				</div>
+				<div class="button">
+					<p class="star">
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+					</p>
+					<a href="#" class = "add">Add-cart</a>
+				</div>
+			</div>
+			<div class="product">
+				<picture>
+					<img src="{{url_for('static', filename='images/Products/6.png')}}" alt="">
+				</picture>
+				<div class="detail">
+					<p>
+						<b>Product Six</b><br>
+						<small>New arrival</small>
+					</p>
+					<samp>$45.00</samp>
+				</div>
+				<div class="button">
+					<p class="star">
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+					</p>
+					<a href="#" class = "add">Add-cart</a>
+				</div>
+			</div>
+			<div class="product">
+				<picture>
+					<img src="{{url_for('static', filename='images/Products/7.png')}}" alt="">
+				</picture>
+				<div class="detail">
+					<p>
+						<b>Product Seven</b><br>
+						<small>New arrival</small>
+					</p>
+					<samp>$45.00</samp>
+				</div>
+				<div class="button">
+					<p class="star">
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+					</p>
+					<a href="#" class = "add">Add-cart</a>
+				</div>
+			</div>
+			<div class="product">
+				<picture>
+					<img src="{{url_for('static', filename='images/Products/8.png')}}" alt="">
+				</picture>
+				<div class="detail">
+					<p>
+						<b>Product Eight</b><br>
+						<small>New arrival</small>
+					</p>
+					<samp>$45.00</samp>
+				</div>
+				<div class="button">
+					<p class="star">
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+					</p>
+					<a href="#" class = "add">Add-cart</a>
+				</div>
+			</div>
+			<div class="product">
+				<picture>
+					<img src="{{url_for('static', filename='images/Products/9.png')}}" alt="">
+				</picture>
+				<div class="detail">
+					<p>
+						<b>Product Nine</b><br>
+						<small>New arrival</small>
+					</p>
+					<samp>$45.00</samp>
+				</div>
+				<div class="button">
+					<p class="star">
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+					</p>
+					<a href="#" class = "add">Add-cart</a>
+				</div>
+			</div>
+			<div class="product">
+				<picture>
+					<img src="{{url_for('static', filename='images/Products/10.png')}}" alt="">
+				</picture>
+				<div class="detail">
+					<p>
+						<b>Product Ten</b><br>
+						<small>New arrival</small>
+					</p>
+					<samp>$45.00</samp>
+				</div>
+				<div class="button">
+					<p class="star">
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+					</p>
+					<a href="#" class = "add">Add-cart</a>
+				</div>
+			</div>
+		</section>
+    </div>
+    
+    <!-- Categories section ends -->
+
+	<!-- Categories 2 section starts -->
+    <div class="featured ">
+        <div class="featured-text second">
+            <h1>Category 2</h1>
+            <hr>
+            <p class="category">Here you can check out our new products with fair prices.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+        <section class="slider">
+			<div class="product">
+				<picture>
+					<img src="{{url_for('static', filename='images/Products/1.png')}}" alt="">
+				</picture>
+				<div class="detail">
+					<p>
+						<b>Product One</b><br>
+						<small>New arrival</small>
+					</p>
+					<samp>$45.00</samp>
+				</div>
+				<div class="button">
+					<p class="star">
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+					</p>
+					<a href="#" class = "add">Add-cart</a>
+				</div>
+			</div>
+			<div class="product">
+				<picture>
+					<img src="{{url_for('static', filename='images/Products/2.png')}}" alt="">
+				</picture>
+				<div class="detail">
+					<p>
+						<b>Product Two</b><br>
+						<small>New arrival</small>
+					</p>
+					<samp>$45.00</samp>
+				</div>
+				<div class="button">
+					<p class="star">
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+					</p>
+					<a href="#" class = "add">Add-cart</a>
+				</div>
+			</div>
+			<div class="product">
+				<picture>
+					<img src="{{url_for('static', filename='images/Products/3.png')}}" alt="">
+				</picture>
+				<div class="detail">
+					<p>
+						<b>Product Three</b><br>
+						<small>New arrival</small>
+					</p>
+					<samp>$45.00</samp>
+				</div>
+				<div class="button">
+					<p class="star">
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+					</p>
+					<a href="#" class = "add">Add-cart</a>
+				</div>
+			</div>
+			<div class="product">
+				<picture>
+					<img src="{{url_for('static', filename='images/Products/4.png')}}" alt="">
+				</picture>
+				<div class="detail">
+					<p>
+						<b>Product Four</b><br>
+						<small>New arrival</small>
+					</p>
+					<samp>$45.00</samp>
+				</div>
+				<div class="button">
+					<p class="star">
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+					</p>
+					<a href="#" class = "add">Add-cart</a>
+				</div>
+			</div>
+			<div class="product">
+				<picture>
+					<img src="{{url_for('static', filename='images/Products/5.png')}}" alt="">
+				</picture>
+				<div class="detail">
+					<p>
+						<b>Product Five</b><br>
+						<small>New arrival</small>
+					</p>
+					<samp>$45.00</samp>
+				</div>
+				<div class="button">
+					<p class="star">
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+					</p>
+					<a href="#" class = "add">Add-cart</a>
+				</div>
+			</div>
+			<div class="product">
+				<picture>
+					<img src="{{url_for('static', filename='images/Products/6.png')}}" alt="">
+				</picture>
+				<div class="detail">
+					<p>
+						<b>Product Six</b><br>
+						<small>New arrival</small>
+					</p>
+					<samp>$45.00</samp>
+				</div>
+				<div class="button">
+					<p class="star">
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+					</p>
+					<a href="" class = "add">Add-cart</a>
+				</div>
+			</div>
+			<div class="product">
+				<picture>
+					<img src="{{url_for('static', filename='images/Products/7.png')}}" alt="">
+				</picture>
+				<div class="detail">
+					<p>
+						<b>Product Seven</b><br>
+						<small>New arrival</small>
+					</p>
+					<samp>$45.00</samp>
+				</div>
+				<div class="button">
+					<p class="star">
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+					</p>
+					<a href="#" class = "add">Add-cart</a>
+				</div>
+			</div>
+			<div class="product">
+				<picture>
+					<img src="{{url_for('static', filename='images/Products/8.png')}}" alt="">
+				</picture>
+				<div class="detail">
+					<p>
+						<b>Product Eight</b><br>
+						<small>New arrival</small>
+					</p>
+					<samp>$45.00</samp>
+				</div>
+				<div class="button">
+					<p class="star">
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+					</p>
+					<a href="#" class = "add">Add-cart</a>
+				</div>
+			</div>
+			<div class="product">
+				<picture>
+					<img src="{{url_for('static', filename='images/Products/9.png')}}" alt="">
+				</picture>
+				<div class="detail">
+					<p>
+						<b>Product Nine</b><br>
+						<small>New arrival</small>
+					</p>
+					<samp>$45.00</samp>
+				</div>
+				<div class="button">
+					<p class="star">
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+					</p>
+					<a href="#" class = "add">Add-cart</a>
+				</div>
+			</div>
+			<div class="product">
+				<picture>
+					<img src="{{url_for('static', filename='images/Products/10.png')}}" alt="">
+				</picture>
+				<div class="detail">
+					<p>
+						<b>Product Ten</b><br>
+						<small>New arrival</small>
+					</p>
+					<samp>$45.00</samp>
+				</div>
+				<div class="button">
+					<p class="star">
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+						<strong>&star;</strong>
+					</p>
+					<a href="#" class = "add">Add-cart</a>
+				</div>
+			</div>
+		</section>
+    </div>
+    
+    <!-- Categories section ends -->
+
+
+
+
+    <!-- custom js file link  -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <script src="{{ url_for('static', filename='Js/script.js') }}"></script>
+	
+</body>
+</html>

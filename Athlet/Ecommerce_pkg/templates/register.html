@@ -1,0 +1,90 @@
+{% extends "layout.html" %}
+
+{% block content%}
+<!-- <div>
+    <form action="" method="POST">
+
+        {{form.hidden_tag()}}
+    <div class="reg-form">
+        <fieldset>
+            <legend>
+                Register Now
+            </legend>
+            <div>
+                {{ form.username.label() }}
+                {{ form.username() }}
+            </div>
+
+            <div>
+                {{ form.email.label() }}
+                {{ form.email() }}
+            </div>
+
+            <div>
+                {{ form.password.label() }}
+                {{ form.password() }}
+            </div>
+            <div>
+                {{ form.confirm_password.label() }}
+                {{ form.confirm_password() }}
+            </div>
+        </fieldset>
+        <div>
+            {{ form.submit() }}
+        </div>
+    </div>
+
+    </form>
+</div>
+<div>
+    <small>
+        Already have an account? <a href="{{ url_for('login')}}">login </a>
+    </small>
+</div> -->
+
+<div class="center">
+    <h1>Register Now</h1>
+    <form method="POST">
+      {{form.hidden_tag()}}
+      
+
+      <div class="txt_field">
+        {{ form.username.label() }}
+        <span></span>
+        {{ form.username() }}
+      </div>
+
+      <div class="txt_field">
+        {{ form.email.label() }}
+        <span></span>
+        {{ form.email() }}
+      </div>
+    
+      <div class="txt_field">
+        {{ form.password.label() }}
+        <span></span>
+        {{ form.password() }}
+      </div>
+
+      <div class="txt_field">
+        {{ form.confirm_password.label() }}
+        <span></span>
+        {{ form.confirm_password() }}
+      </div>
+
+
+      <div>
+        {{ form.submit() }}
+      </div>
+
+      <div class="signup_link">
+        Already have an account? <a href="{{ url_for('login')}}">Log in</a>
+      </div>
+
+    </form>
+  </div>
+
+{%endblock %}
+
+
+

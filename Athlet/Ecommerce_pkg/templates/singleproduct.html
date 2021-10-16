@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athlet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,300&display=swap" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">">
+
+    <!-- favicon icon -->
+    <link rel="icon" type="images/png" href="{{url_for('static', filename='images/favicon.png')}}">
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- custom css file link  -->
+	<link rel = "stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel = "stylesheet" href="{{ url_for('static', filename='css/product.css') }}" />
+    <link rel = "stylesheet" href="{{ url_for('static', filename='css/singleproduct.css') }}" />
+    
+
+
+</head>
+<body>
+    <!-- Header starts -->
+	<div class="header">
+		<a href="{{ url_for('home') }}" class="logo">
+			<img src="{{ url_for('static', filename='images/2.png')}}" alt="logo">
+		</a>
+	
+		<nav class="navbar">
+			<a href="{{url_for('home')}}">Home</a>
+			<a href="#" class="cat">Categories</a>
+			<div class="sub-cat">
+				<ul>
+					<li><a href="#">Outdoor</a></li>
+					<li><a href="#">Indoor</a></li>
+					<li><a href="#">Water sports</a></li>
+					<li><a href="#">Protein</a></li>
+				</ul>
+			</div>
+			<a href="#">About</a>
+			<a href="#">Contact</a>
+		</nav>
+	
+		<div class="icons">
+			<!-- <div class="fas fa-search" id="search-btn"></div> -->
+			{% if current_user.is_authenticated %}
+			{% if current_user.email == "nitin@gmail.com" %}
+			<a href="#">
+				<div class="fas fa-search" id="search-btn"></div>
+			</a>
+			<div class="fas fa-shopping-cart" id="cart-btn"></div>
+			<a class="head-btn" href="{{url_for('logout')}}">logout</a>
+			<a class="head-btn" href="{{url_for('account')}}">account</a>
+			<a class="head-btn" href="{{url_for('addproduct')}}">Add Products</a>
+	
+			{% else %}
+			<a href="#">
+				<div class="fas fa-search" id="search-btn"></div>
+			</a>
+			<div class="fas fa-shopping-cart" id="cart-btn"></div>
+			<a class="head-btn" href="{{url_for('logout')}}">logout</a>
+			<a class="head-btn" href="{{url_for('account')}}">account</a>
+			{% endif %}
+			{% else %}
+			<a class="head-btn" href="{{url_for('login')}}">login</a>
+			<a class="head-btn" href="{{url_for('register')}}">register</a>
+	
+			{% endif %}
+	
+	
+			<div class="fas fa-bars" id="menu-btn"></div>
+	
+		</div>
+	
+		<div class="search-form">
+			<input type="search" id="search-box" placeholder="search for items...">
+			<label for="search-box" class="fas fa-search"></label>
+		</div>
+	</div>
+    <!-- header ends -->
+
+
+
+    <!-- Product starts -->
+	{% for product in products %}
+    <div class="small-container">
+        <div class="row">
+            <div class="col-2">
+                <img src="{{url_for('static',filename='/images/uploads/'+product.image)}}" alt="">
+            </div>
+            <div class="col-2">
+                <p class="heading">Home/T-shirt</p>
+                <h1 style="font-size: 40px; color: #14274E;">{{ product.name }}</h1>
+                <h4 class="price">{{ product.price }}</h4>
+
+                
+                
+                <div class="desc">
+                    <h3 style="font-size: 20px; margin-bottom: 10px;">Product Description</h3>
+                <p style="font-size: 15px;">{{ product.description }}</p>
+                </div>
+
+                <div class="fnl-btn">
+                    <span class="fnl"><a href="{{url_for('add_to_cart',product_id=product.id)}}" class="buy">Add to cart</a></span>
+                    <span class="fnl"><a href="#" class="buy">Buy Now</a></span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+	{% endfor %}
+
+    <!-- Product starts -->
+
+
+
+    <!-- Product section starts -->
+
+    <h1 class="extra" style="margin: 100px auto 10px auto;">You may also like</h1>
+    <hr>
+    <div class = "product-items">
+
+        
+        <!-- single product -->
+		{% for item in items %}
+		<a href="{{url_for('singleproduct', product_id=item.id)}}">
+			<div class = "product">
+				<div class = "product-content">
+					<div class = "product-img">
+						<img src = "{{url_for('static', filename='/images/uploads/'+item.image)}}" alt = "product image">
+					</div>
+					<div class = "product-btns">
+						<button type = "button" class = "btn-cart">
+							<a href="{{url_for('add_to_cart',product_id=item.id)}}" class="buy">Add to cart</a>
+							<span><i class = "fas fa-plus"></i></span>
+						</button>
+						<button type = "button" class = "btn-buy"> buy now
+							<span><i class = "fas fa-shopping-cart"></i></span>
+						</button>
+					</div>
+				</div>
+	
+				<div class = "product-info">
+					<div class = "product-info-top">
+						<h2 class = "sm-title">Athlet</h2>
+						<div class = "rating">
+							<span><i class = "fas fa-star"></i></span>
+							<span><i class = "fas fa-star"></i></span>
+							<span><i class = "fas fa-star"></i></span>
+							<span><i class = "fas fa-star"></i></span>
+							<span><i class = "far fa-star"></i></span>
+						</div>
+					</div>
+					<h1>{{ item.name }}</h1>
+					<p class = "product-price">{{ item.price }}</p>
+				</div>
+			</div>
+		</a>
+		{% endfor %}
+		
+		<!-- single product ends -->
+
+    </div>
+</div>
+</div>
+
+
+    <!-- Product section ends -->
+
+        	<!-- Footer section ends -->
+
+<footer >
+	<div class="row">
+		<div class="col">
+			<img src="{{ url_for('static', filename='images/2.png') }}" alt="logo" class="logo-footer">
+			<p>To Sustainably Make the Pleasure and Benefits of Sports Accessible to the Many.</p>
+			<div class="social-icons">
+				<i class="fab fa-facebook-f"></i>
+				<i class="fab fa-twitter"></i>
+				<i class="fab fa-whatsapp"></i>
+				<i class="fab fa-instagram"></i>
+			</div>
+			
+		</div>
+		<div class="col addreess">
+			<h3>Warehouse</h3>
+			<p>1725 Slough Avenue,</p>
+			<p>Suite 200 in the Scranton Business Park.</p>
+			<p class="email-id">contactathlet@gmail.com</p>
+			<h4>+1-650-555-0163</h4>
+		</div>
+
+		<div class="col">
+			<h3>Categories</h3>
+			<ul>
+				<li><a href="#">Outdoor Sports</a></li>
+				<li><a href="#">Fitness Sports</a></li>
+				<li><a href="#">Water Sports</a></li>
+				<li><a href="#">Nutrition and Supplements</a></li>
+			</ul>
+		</div>
+	</div>
+	<hr>
+	<p class="copyrights">© 2021 Athlet Sports India Pvt Ltd. All rights reserved.</p>
+</footer>
+
+	<!-- Footer section ends -->
+
+
+    <!-- custom js file link  -->
+    <script src="{{ url_for('static', filename='Js/script.js') }}"></script>
+
+</body>
+</html>

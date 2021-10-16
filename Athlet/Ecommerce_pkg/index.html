@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athlet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,300&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!-- favicon icon -->
+    <link rel="icon" type="images/png" href="{{url_for('static', filename='images/favicon.png')}}">
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- custom css file link  -->
+	<link rel = "stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+	<link rel = "stylesheet" href="{{ url_for('static', filename='css/product.css') }}" />
+
+</head>
+<body>
+    <!-- Header starts -->
+    <div class="header">
+        <a href="#" class="logo">
+            <img src="{{ url_for('static', filename='images/2.png')}}" alt="logo">
+        </a>
+
+        <nav class="navbar">
+            <a href="{{url_for('home')}}">Home</a>
+            <a href="#" class="cat">Categories</a>
+				<div class="sub-cat">
+					<ul>
+						<li><a href="#">Outdoor</a></li>
+						<li><a href="#">Indoor</a></li>
+						<li><a href="#">Water sports</a></li>
+						<li><a href="#">Protein</a></li>
+					</ul>
+				</div>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </nav>
+
+        <div class="icons">
+            <!-- <div class="fas fa-search" id="search-btn"></div> -->
+			{% if current_user.is_authenticated %}
+			<a href="#"><div class="fas fa-search" id="search-btn"></div></a>
+            <div class="fas fa-shopping-cart" id="cart-btn"></div>
+			<a class="head-btn" href="{{url_for('logout')}}">logout</a>
+			<a class="head-btn" href="{{url_for('account')}}">account</a>
+
+			{% else %}
+			<a class="head-btn" href="{{url_for('login')}}">login</a>
+			<a class="head-btn" href="{{url_for('register')}}">register</a>
+
+			{%  endif %}
+			
+			
+            <div class="fas fa-bars" id="menu-btn"></div>
+
+        </div>
+
+        <div class="search-form">
+            <input type="search" id="search-box" placeholder="search for items...">
+            <label for="search-box" class="fas fa-search"></label>
+        </div>
+    </div>
+    <!-- header ends -->
+
+    <!-- Hero section starts -->
+    <div class="home">
+        <div class="text">
+            <h5>NEW ARRIVALS</h5>
+            <h1><span>Best Price</span> This Season</h1>
+            <p>Athlet offers you everything you reuqire at its best prices this season.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <button class="primary-btn">
+                <a href="{{url_for('product')}}" style="color: #fff;">Shop Now</a>
+            </button>
+        </div>
+    </div>
+    <!-- Hero section ends-->
+
+    <!-- Featured section starts -->
+    <section class="featured">
+        <div class="featured-text">
+            <h1>Featured Products</h1>
+            <hr>
+            <p>Here you can check out our new products with fair prices.</p>
+        </div>
+        <div class="best-sellers">
+            <div class="card">
+                <div class="imgbx">
+                    <img src="{{url_for('static', filename='images/featured/1.png')}}" alt="bag">
+                </div>
+                <div class="contentbx">
+                    <h3>Trekking bag</h3>
+                    <h2 class="price">₹ 2999.<small>00</small></h2>
+                    <a href="#" class="buy">Buy Now</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="imgbx shoe">
+                    <img  src="{{url_for('static', filename='images/featured/2.png')}}" alt="bag">
+                </div>
+                <div class="contentbx">
+                    <h3>Sports shoes</h3>
+                    <h2 class="price">₹ 1999.<small>00</small></h2>
+                    <a href="#" class="buy">Buy Now</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="imgbx jacket">
+                    <img src="{{url_for('static', filename='images/featured/3.png')}}" alt="bag">
+                </div>
+                <div class="contentbx">
+                    <h3>Tennis Jacket</h3>
+                    <h2 class="price">₹ 1599.<small>00</small></h2>
+                    <a href="#" class="buy">Buy Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured section ends -->
+
+    <!-- offer -->
+    <div class="banner">
+        <div>
+            <h4>END OF THE SEASON'S SALE</h4>
+            <h1>
+                Winter Collenction <br>
+                UP TO 20% OFF
+            </h1>
+            <button class="primary-btn">
+                Shop Now
+            </button>
+        </div>
+    </div>
+    <!-- offer -->
+    {% for product in products %}
+    <div class="card" style="width: 18rem;">
+        <img src="{{url_for('static',filename='/images/'+product.image)}}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{product.name}}</h5>
+            <p class="card-text">{{product.price}}</p>
+            <a href="{{url_for('add_to_cart',product_id=product.id)}}" class="btn btn-primary">add to cart</a>
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- Categories section starts -->
+    <div class="featured">
+        <div class="featured-text">
+            <h1>Category 1</h1>
+            <hr>
+            <p class="category">Here you can check out our new products with fair prices.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+
+        <section class="slider">
+		
+		
+<!-- Start for loop -->
+		<!-- single product -->
+		
+			<div class = "product">
+				<a href="{{url_for('singleproduct')}}">
+				<div class = "product-content">
+					<div class = "product-img">
+						<img src = "{{url_for('static', filename='images/featured/1.png')}}" alt = "product image">
+					</div>
+					<div class = "product-btns">
+						<button type = "button" class = "btn-cart"> add to cart
+							<span><i class = "fas fa-plus"></i></span>
+						</button>
+						<button type = "button" class = "btn-buy"> buy now
+							<span><i class = "fas fa-shopping-cart"></i></span>
+						</button>
+					</div>
+				</div>
+	
+				<div class = "product-info">
+					<div class = "product-info-top">
+						<h2 class = "sm-title">Athlet</h2>
+						<div class = "rating">
+							<span><i class = "fas fa-star"></i></span>
+							<span><i class = "fas fa-star"></i></span>
+							<span><i class = "fas fa-star"></i></span>
+							<span><i class = "fas fa-star"></i></span>
+							<span><i class = "far fa-star"></i></span>
+						</div>
+					</div>
+
+					<h1>Trekk bag DN 23XX, new product</h1>
+					
+					<p class = "product-price">$ 133.00</p>
+				</div>
+			    </a>
+			</div>
+		
+		<!-- single product ends -->
+
+			
+		</section>
+    </div>
+    
+    <!-- Categories section ends -->
+
+
+	<!-- Footer section ends -->
+
+<footer>
+	<div class="row">
+		<div class="col">
+			<img src="{{ url_for('static', filename='images/2.png') }}" alt="logo" class="logo-footer">
+			<p>To Sustainably Make the Pleasure and Benefits of Sports Accessible to the Many.</p>
+			<div class="social-icons">
+				<i class="fab fa-facebook-f"></i>
+				<i class="fab fa-twitter"></i>
+				<i class="fab fa-whatsapp"></i>
+				<i class="fab fa-instagram"></i>
+			</div>
+			
+		</div>
+		<div class="col addreess">
+			<h3>Warehouse</h3>
+			<p>1725 Slough Avenue,</p>
+			<p>Suite 200 in the Scranton Business Park.</p>
+			<p class="email-id">contactathlet@gmail.com</p>
+			<h4>+1-650-555-0163</h4>
+		</div>
+
+		<div class="col">
+			<h3>Categories</h3>
+			<ul>
+				<li><a href="#">Outdoor Sports</a></li>
+				<li><a href="#">Fitness Sports</a></li>
+				<li><a href="#">Water Sports</a></li>
+				<li><a href="#">Nutrition and Supplements</a></li>
+			</ul>
+		</div>
+	</div>
+	<hr>
+	<p class="copyrights">© 2021 Athlet Sports India Pvt Ltd. All rights reserved.</p>
+</footer>
+
+	<!-- Footer section ends -->
+
+
+    <!-- custom js file link  -->
+    <script src="{{ url_for('static', filename='Js/script.js') }}"></script>
+
+</body>
+</html>

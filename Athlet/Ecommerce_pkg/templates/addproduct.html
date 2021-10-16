@@ -1,0 +1,41 @@
+
+{% extends "layout.html" %}
+
+{% block content%}
+<div>
+    <form action="" method="POST" enctype="multipart/form-data">
+
+        {{form.hidden_tag()}}
+        <fieldset>
+            <legend>
+                Add Product
+            </legend>
+            <div>
+                {{ form.name.label() }}
+                {{ form.name() }}
+            </div>
+
+            <div>
+                {{ form.price.label() }}
+                {{ form.price() }}
+            </div>
+
+            <div>
+                {{ form.description.label() }}
+                {{ form.description() }}
+            </div>
+            <div>
+              {{ form.category.label() }}
+              {{ form.category() }}
+          </div>
+            <div>
+              {{form.image.label()}} 
+              {{form.image()}}
+            </div>
+        </fieldset>
+        <div>
+            {{ form.submit() }}
+        </div>
+       
+{% endblock content %}
+      
